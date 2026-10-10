@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#11101b">
+<title>ClipBoost AI — Your next viral clip starts here</title>
+<meta name="description" content="Turn long videos into short-form content ideas with ClipBoost AI. Simple tools for creators who want to grow.">
+
+<style>
+:root {
+  --bg: #11101b;
+  --panel: #1b1929;
+  --text: #fbf9ff;
+  --muted: #aaa6bf;
+  --purple: #a78bfa;
+  --coral: #ff806b;
+  --mint: #8af0ce;
+  --line: rgba(255,255,255,.10);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 12% 5%, rgba(123,85,220,.18), transparent 36%),
+    radial-gradient(ellipse at 92% 20%, rgba(255,128,107,.12), transparent 30%),
+    var(--bg);
+  min-height: 100vh;
+}
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+.container { width: min(1080px, 92%); margin: auto; }
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 23px 0;
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 21px; font-weight: 850; letter-spacing: -.7px;
+}
+.brand-mark {
+  width: 37px; height: 37px; display: grid; place-items: center;
+  border-radius: 13px;
+  color: #171220;
+  background: linear-gradient(135deg, var(--coral), #ffc28c);
+  box-shadow: 0 5px 24px rgba(255,128,107,.2);
+}
+.brand span { color: var(--purple); }
+.nav-note { font-size: 13px; color: var(--muted); }
+
+.hero { text-align: center; padding: 68px 0 34px; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 13px; border: 1px solid var(--line);
+  border-radius: 30px; background: rgba(255,255,255,.035);
+  color: #d9d0ff; font-size: 12px; font-weight: 700;
+}
+.dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--mint); box-shadow: 0 0 12px var(--mint);
+}
+h1 {
+  max-width: 760px; margin: 23px auto 17px;
+  font-size: clamp(39px, 7vw, 70px); line-height: 1.03;
+  letter-spacing: -3.5px;
+}
+.gradient-text {
+  background: linear-gradient(100deg, var(--purple), #f2a4ef 48%, var(--coral));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero p {
+  max-width: 540px; margin: auto; color: var(--muted);
+  font-size: 16px; line-height: 1.8;
+}
+
+.workspace {
+  max-width: 730px; margin: 0 auto;
+  padding: 24px; border: 1px solid rgba(255,255,255,.13);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(34,31,52,.97), rgba(23,21,35,.97));
+  box-shadow: 0 25px 90px rgba(0,0,0,.27);
+}
+.field-label {
+  display: block; margin: 0 0 10px;
+  font-size: 13px; font-weight: 750;
+}
+.url-wrap {
+  display: flex; align-items: center; gap: 11px;
+  padding: 7px 7px 7px 14px; border: 1px solid var(--line);
+  border-radius: 14px; background: #12111d;
+}
+.url-icon { font-size: 20px; }
+input[type="url"] {
+  min-width: 0; flex: 1; padding: 11px 0;
+  color: var(--text); background: transparent;
+  border: 0; outline: 0;
+}
+input::placeholder { color: #77738d; }
+.paste-btn {
+  border: 0; border-radius: 10px; padding: 10px 12px;
+  background: #302b43; color: #eee9ff; font-size: 12px;
+}
+.hint { margin: 9px 0 22px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+
+.options {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+}
+select {
+  width: 100%; padding: 13px 12px; border-radius: 12px;
+  color: var(--text); background: #12111d; border: 1px solid var(--line);
+  outline: none;
+}
+.primary {
+  display: flex; justify-content: center; align-items: center; gap: 10px;
+  width: 100%; margin-top: 21px; padding: 16px;
+  border: 0; border-radius: 13px; color: #1b1424;
+  background: linear-gradient(100deg, #b9a2ff, #f4a5e6 53%, #ffad8b);
+  font-weight: 850; transition: transform .2s, filter .2s;
+}
+.primary:hover { transform: translateY(-2px); filter: brightness(1.07); }
+.primary:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--mint); outline-offset: 3px;
+}
+#message {
+  display: none; margin-top: 15px; padding: 13px;
+  border-radius: 11px; background: rgba(138,240,206,.08);
+  border: 1px solid rgba(138,240,206,.25);
+  color: #c6ffea; font-size: 13px; line-height: 1.7;
+}
+.trust {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 17px;
+  margin-top: 20px; color: var(--muted); font-size: 12px;
+}
+.trust span::first-letter { color: var(--mint); }
+
+.section { padding: 76px 0 25px; }
+.section-heading { text-align: center; margin-bottom: 30px; }
+.section-heading h2 { font-size: clamp(26px,4vw,36px); letter-spacing: -1.2px; margin: 0 0 10px; }
+.section-heading p { color: var(--muted); font-size: 14px; line-height: 1.7; margin: 0; }
+.features { display: grid; grid-template-columns: repeat(3,1fr); gap: 15px; }
+.feature {
+  padding: 23px; border: 1px solid var(--line);
+  border-radius: 18px; background: rgba(255,255,255,.025);
+}
+.feature-icon {
+  display: grid; place-items: center; width: 43px; height: 43px;
+  border-radius: 13px; background: rgba(167,139,250,.13);
+  font-size: 21px; margin-bottom: 17px;
+}
+.feature h3 { font-size: 16px; margin: 0 0 9px; }
+.feature p { color: var(--muted); font-size: 13px; line-height: 1.75; margin: 0; }
+
+.steps {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 18px;
+}
+.step { text-align: center; padding: 15px; }
+.step-num {
+  margin: 0 auto 13px; width: 35px; height: 35px;
+  display: grid; place-items: center; border-radius: 50%;
+  background: rgba(255,128,107,.12); color: #ffad9c; font-weight: 800;
+}
+.step h3 { font-size: 15px; margin: 0 0 8px; }
+.step p { font-size: 13px; line-height: 1.7; color: var(--muted); margin: 0; }
+
+.bottom-cta {
+  margin: 55px 0 65px; text-align: center; padding: 35px 20px;
+  border: 1px solid var(--line); border-radius: 22px;
+  background: linear-gradient(110deg, rgba(167,139,250,.10), rgba(255,128,107,.08));
+}
+.bottom-cta h2 { margin: 0 0 10px; letter-spacing: -1px; }
+.bottom-cta p { color: var(--muted); font-size: 14px; line-height: 1.7; }
+.bottom-cta a {
+  display: inline-block; margin-top: 8px; padding: 12px 19px;
+  border-radius: 11px; background: var(--text); color: #17131f;
+  font-size: 13px; font-weight: 800;
+}
+footer {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+  padding: 23px 0; border-top: 1px solid var(--line);
+  color: var(--muted); font-size: 12px;
+}
+
+@media(max-width:650px) {
+  .hero { padding-top: 49px; }
+  h1 { letter-spacing: -2px; }
+  .workspace { padding: 17px; border-radius: 19px; }
+  .options, .features, .steps { grid-template-columns: 1fr; }
+  .feature { padding: 20px; }
+  .nav-note { font-size: 11px; }
+  .paste-btn { padding: 9px; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <nav>
+    <a class="brand" href="#" aria-label="ClipBoost AI home">
+      <div class="brand-mark">✦</div>
+      ClipBoost <span>AI</span>
+    </a>
+    <div class="nav-note">Made for creators, everywhere 🌍</div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow"><span class="dot"></span> YOUR NEXT BIG CLIP STARTS HERE</div>
+    <h1>Big videos.<br><span class="gradient-text">Small clips. Big energy.</span></h1>
+    <p>Turn your content into short-form video ideas. Less searching, more creating. Built for creators who are ready to grow.</p>
+  </header>
+
+  <main>
+    <section class="workspace" aria-labelledby="workspace-title">
+      <label class="field-label" id="workspace-title" for="videoUrl">1. Paste your YouTube video link</label>
+      <div class="url-wrap">
+        <span class="url-icon" aria-hidden="true">▶</span>
+        <input id="videoUrl" type="url" placeholder="https://youtube.com/watch?v=..." autocomplete="url">
+        <button class="paste-btn" id="pasteBtn" type="button">Paste link</button>
+      </div>
+      <p class="hint">Start with a video you own or have permission to use.</p>
+
+      <div class="options">
+        <div>
+          <label class="field-label" for="style">2. Choose your clip style</label>
+          <select id="style">
+            <option value="Viral moments">🔥 Viral moments</option>
+            <option value="Funny moments">😂 Funny moments</option>
+            <option value="Motivation">⚡ Motivation</option>
+            <option value="Educational highlights">🧠 Educational highlights</option>
+            <option value="Podcast highlights">🎙️ Podcast highlights</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label" for="length">3. Clip length</label>
+          <select id="length">
+            <option value="30–60 seconds">30–60 seconds</option>
+            <option value="15–30 seconds">15–30 seconds</option>
+            <option value="60–90 seconds">60–90 seconds</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="primary" id="generateBtn" type="button">
+        ✨ Prepare my clips <span aria-hidden="true">→</span>
+      </button>
+      <div id="message" role="status" aria-live="polite"></div>
+      <div class="trust">
+        <span>✓ Simple workflow</span>
+        <span>✓ Creator-first design</span>
+        <span>✓ No editing skills needed</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <h2>Your content deserves a second life.</h2>
+        <p>Everything starts with a simple idea. Here's what ClipBoost AI is being built to help with.</p>
+      </div>
+      <div class="features">
+        <article class="feature">
+          <div class="feature-icon">✂️</div>
+          <h3>Find the best moments</h3>
+          <p>Discover a workflow for turning long videos into short, shareable content.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon">💬</div>
+          <h3>Captions that hook</h3>
+          <p>Get help creating attention-grabbing hooks, titles, descriptions, and hashtags.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon">🎨</div>
+          <h3>Make it yours</h3>
+          <p>Plan a consistent creator style with your own branding and watermark.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <h2>Three steps. That's it.</h2>
+        <p>Video editing should feel easy, not overwhelming.</p>
+      </div>
+      <div class="steps">
+        <article class="step">
+          <div class="step-num">1</div>
+          <h3>Bring your video</h3>
+          <p>Start with a video you own or are authorized to process.</p>
+        </article>
+        <article class="step">
+          <div class="step-num">2</div>
+          <h3>Choose your style</h3>
+          <p>Tell us what kind of moments you want to find.</p>
+        </article>
+        <article class="step">
+          <div class="step-num">3</div>
+          <h3>Create and share</h3>
+          <p>The goal: ready-to-edit clips that fit your channel and audience.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="bottom-cta">
+      <h2>Ready to boost your content? ✨</h2>
+      <p>We're building a simpler way to create short-form content.<br>Be part of the journey.</p>
+      <a href="#workspace-title">Let's get started ↑</a>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand" href="#" style="font-size:15px">
+      <div class="brand-mark" style="width:28px;height:28px;border-radius:9px">✦</div>
+      ClipBoost <span>AI</span>
+    </a>
+    <span>© <span id="year"></span> ClipBoost AI · Built for creators.</span>
+  </footer>
+</div>
+
+<script>
+const videoUrl = document.getElementById("videoUrl");
+const message = document.getElementById("message");
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+function showMessage(text) {
+  message.textContent = text;
+  message.style.display = "block";
+}
+
+document.getElementById("pasteBtn").addEventListener("click", async () => {
+  try {
+    const text = await navigator.clipboard.readText();
+    if (!text) {
+      showMessage("Your clipboard is empty. Copy your video link first, then paste it here.");
+      return;
+    }
+    videoUrl.value = text.trim();
+    showMessage("Link pasted! Choose your style, then prepare your clips.");
+  } catch {
+    videoUrl.focus();
+    showMessage("Your browser blocked clipboard access. Click the link field and press Ctrl + V to paste.");
+  }
+});
+
+document.getElementById("generateBtn").addEventListener("click", () => {
+  const raw = videoUrl.value.trim();
+
+  if (!raw) {
+    showMessage("First, paste a YouTube video link above. You've got this! ✨");
+    videoUrl.focus();
+    return;
+  }
+
+  let parsed;
+  try {
+    parsed = new URL(raw);
+  } catch {
+    showMessage("That link doesn't look right. Please paste a complete YouTube URL.");
+    videoUrl.focus();
+    return;
+  }
+
+  const host = parsed.hostname.toLowerCase().replace(/^www\./, "");
+  const validHost = ["youtube.com", "m.youtube.com", "youtu.be", "youtube-nocookie.com"].includes(host);
+
+  if (!validHost || !(parsed.protocol === "https:" || parsed.protocol === "http:")) {
+    showMessage("Please use a valid YouTube link, such as https://www.youtube.com/watch?v=...");
+    videoUrl.focus();
+    return;
+  }
+
+  const style = document.getElementById("style").value;
+  const length = document.getElementById("length").value;
+
+  showMessage(
+    "Nice! Your link passed the basic check. ✨ Your preferences: " +
+    style + " · " + length +
+    ". Automatic clip generation is not connected yet. Next, we'll build the video-processing system so this button can do the real work."
+  );
+});
+</script>
+</body>
+</html>
